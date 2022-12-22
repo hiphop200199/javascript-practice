@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
     padding: 0;
     margin: 0;
@@ -26,4 +27,34 @@ body {
             }
         }
     }
+=======
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    .box {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+        background-color: #222;
+
+        @for $i from 1 through 3 {
+            .item:nth-child(#{$i}) {
+                position: absolute;
+                height: #{calc(100 + $i*50)}+"px";
+                width: #{calc(100 + $i*50)}+"px";
+                top: #{calc(100 + $i*50)}+"px";
+                left: #{calc(10 + $i*300)}+"px";
+                border: 1px solid white;
+                background-color: aquamarine;
+            }
+        }
+    }
+>>>>>>> 4a553a7 (增加scroll animate的筆記)
 }
