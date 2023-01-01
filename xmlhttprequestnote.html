@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>
+      AJAX:想要更新網頁中的部分資料時，不需要刷新整個頁面而中斷使用者的操作
+    </h1>
+    <h2>要先建立一個物件XMLHttpRequest()</h2>
+    <h3>
+      XMLHttpRequest.onreadystatechange 會於 readyState 屬性狀態改變時被呼叫。
+      也就是說，主要想做的事情
+    </h3>
+    <h4>XMLHttpRequest.readyState 屬性會回傳一個 XMLHttpRequest 客戶端物件目前的狀態。可以為下列其中一種狀態：
+    <h5>值	狀態	說明</h5>
+      <span>0	UNSENT	客戶端已被建立，但 open() 方法尚未被呼叫。</span> 
+      <span> 1	OPENED	open() 方法已被呼叫。</span>
+      
+       <span> 2	HEADERS_RECEIVED	send() 方法已被呼叫，而且可取得 header 與狀態。</span>
+      <span>3	LOADING	回應資料下載中，此時 responseText 會擁有部分資料。</span> 
+      <span> 4	DONE	完成下載操作。
+     </h4>
+     <h3>XMLHttpRequest.response  Read only
+      回傳的內容可能是 ArrayBuffer、Blob、Document、JavaScript 物件或 DOMString。完全根據 XMLHttpRequest.responseType  的值決定回傳的內容為何種型態，資料為回應實體中的內容（response entity body）。</h3>
+      <h3>XMLHttpRequest.status Read only
+        回傳一個無符號短整數（unsigned short）表示已發送請求之回應的狀態。
+        
+        XMLHttpRequest.statusText  Read only
+        回傳一個 DOMString 表示 HTTP 伺服器回應之字串。和 XMLHTTPRequest.status 不同的是，XMLHttpRequest.statusText 包含了回應的整個文字訊息（如 "200 OK"）。</h3>
+      <h4>HTTP 狀態碼
+        HTTP 狀態碼表明一個 HTTP 要求是否已經被完成。回應分為五種：
+        
+        資訊回應 (Informational responses, 100–199),
+        成功回應 (Successful responses, 200–299),
+        重定向 (Redirects, 300–399),
+        用戶端錯誤 (Client errors, 400–499),
+        伺服器端錯誤 (Server errors, 500–599).</h4>
+        <h6>XMLHttpRequest.abort() 
+          中止已發出的請求。</h6>
+          <h3>XMLHttpRequest.open() 
+            初始化一個請求。</h3>
+            <h4>參數部分:
+              method
+              The HTTP request method to use, such as "GET", "POST", "PUT", "DELETE", etc. 
+              
+              url
+              A string representing the URL to send the request to.
+              
+              async Optional
+              An optional Boolean parameter, defaulting to true, indicating whether or not to perform the operation asynchronously. If this value is false, the send() method does not return until the response is received. If true, notification of a completed transaction is provided using event listeners. This must be true if the multipart attribute is true, or an exception will be thrown.
+              
+              Note: Synchronous requests on the main thread can be easily disruptive to the user experience and should be avoided; in fact, many browsers have deprecated synchronous XHR support on the main thread entirely. Synchronous requests are permitted in Workers.
+              
+              user Optional
+              The optional user name to use for authentication purposes; by default, this is the null value.
+              
+              password Optional
+              The optional password to use for authentication purposes; by default, this is the null value.</h4>
+            <h3>XMLHttpRequest.send() 
+              發送請求。如果為非同步請求（預設值），此方法將在發出請求後便立即回傳（return）。</h3>
+              <h4>參數部分:
+                body Optional
+                A body of data to be sent in the XHR request. This can be:
+                
+                A Document, in which case it is serialized before being sent.
+                An XMLHttpRequestBodyInit, which per the Fetch spec can be a Blob, an ArrayBuffer, a TypedArray, a DataView, a FormData, a URLSearchParams, or a string literal or object.
+                null
+                If no value is specified for the body, a default value of null is used.
+                
+                The best way to send binary content (e.g. in file uploads) is by using a TypedArray, a DataView or a Blob object in conjunction with the send() method.
+                
+                Return value
+                None (undefined).
+                
+                Exceptions
+                InvalidStateError DOMException
+                Thrown if send() has already been invoked for the request, and/or the request is complete.
+                
+                NetworkError DOMException
+                Thrown if the resource type to be fetched is a Blob, and the method is not GET.</h4>
+            <h3>XMLHttpRequest.setRequestHeader()
+                  在POST方法時蠻好用的
+                  設定 HTTP 請求標頭（request header）值。setRequestHeader() 可被呼叫的時間點必須於 open() 之後、在 send() 之前。
+                例如:xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                </h3>
+                <h3>提交方法簡介
+                  一個 HTML 表單（form）有以下四種提交方式：
+                  
+                  使用 POST 方法，並且設定 enctype 屬性（attribute）為 application/x-www-form-urlencoded（預設值）。
+                  使用 POST 方法，並且設定 enctype 屬性為 text/plain。
+                  使用 POST 方法，並且設定 enctype 屬性為 multipart/form-data。
+                  使用 GET 方法（在此情況下，enctype 屬性將會被忽略）。
+                  現在，假設要提交一個只包含兩個欄位的表單，欄位名稱為 foo 及 baz。若是使用 POST 方法，伺服器將會收到一個如以下三個例子之一的字串，這取決於所使用的編碼類型（encoding type）：
+                  
+                  方法：POST；編碼類型：application/x-www-form-urlencoded（預設值）：(把內容值做編碼)
+                  Content-Type: application/x-www-form-urlencoded
+                  
+                  foo=bar&baz=The+first+line.%0D%0AThe+second+line.%0D%0A
+                  
+                  方法：POST；編碼類型：text/plain：
+                  Content-Type: text/plain
+                  
+                  foo=bar
+                  baz=The first line.
+                  The second line.
+                 
+                  方法：POST；編碼類型：multipart/form-data：(切成幾個表單資料部分的意思)
+                  Content-Type: multipart/form-data; boundary=---------------------------314911788813839
+                  
+                  -----------------------------314911788813839
+                  Content-Disposition: form-data; name="foo"
+                  
+                  bar
+                 
+                  Content-Disposition: form-data; name="baz"
+                  
+                  The first line.
+                  The second line.
+                  
+                  
+                  如果是使用 GET 方法，一個如下方的字串會被直接附加入到 URL 上：
+                  
+                  ?foo=bar&baz=The%20first%20line.%0AThe%20second%20line.
+                  
+                  </h3>
+  </body>
+</html>
